@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { observer } from "mobx-react";
 import shopStore from "../../stores/shopStore";
 import ShopItem from "./ShopItem";

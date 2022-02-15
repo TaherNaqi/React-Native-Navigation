@@ -4,13 +4,18 @@ import Home from "../Home";
 import ShopList from "../Shop/ShopList";
 import ShopDetail from "../Shop/ShopDetail";
 import CartList from "../Cart/CartList";
+import CartButton from "../Cart/CartButton";
 const StackNavigator = () => {
   const { Navigator, Screen } = createStackNavigator();
   return (
     <Navigator
       initialRouteName="Home"
       screenOptions={{
-        headerStyle: { backgroundColor: "orange", headerTintColor: "white" },
+        headerRight: () => <CartButton />,
+        headerStyle: {
+          backgroundColor: "orange",
+          // headerTintColor: "white",
+        },
       }}
     >
       <Screen name="Home" component={Home} options={{ headerShown: false }} />

@@ -1,40 +1,63 @@
-import { StyleSheet } from "react-native";
-import React from "react";
+import { StyleSheet, Text, Image } from "react-native";
+import React, { useState } from "react";
 import { baseURL } from "../../stores/api";
-import { Center, Heading, VStack } from "native-base";
-
+import { Avatar, Button, VStack } from "native-base";
+import { HStack } from "native-base";
+import NumericInput from "react-native-numeric-input";
+import { observer } from "mobx-react";
+import cartStore from "../../stores/cartStore";
 const CartItem = ({ item }) => {
+  const [quantity, setQuantity] = useState(item.quantity);
+  console.log(
+    "🚀 ~ file: CartItem.js ~ line 11 ~ CartItem ~ quantity",
+    quantity
+  );
+  // const product = cartStore.items.find((i) => i._id === item._id);
+  // setQuantity(product.quantity);
+  const handleAdd = () => {
+    const newItem = {
+      product: item.product,
+      quantity: quantity,
+    };
+    cartStore.addItemToCart(newItem);
+  };
   return (
-    // <View>
-    //   <Text>{product.name}</Text>
-    //   <Image source={{ uri: product.image }} style={styles.cartImage} />
-    //   <Text>{product.price}</Text>
-
-    //   <Text>{product.quantity}</Text>
-    // </View>
-    <VStack space={4} alignItems="center">
-      <Heading>{item.product.name}</Heading>
-
-      <Center
-        size={16}
-        bg="primary.400"
-        rounded="md"
-        _text={{
-          color: "white",
-        }}
-        shadow={3}
+    <HStack space={2} style={styles.cartDisplay}>
+      <Avatar source={{ uri: item.product.image }} style={styles.cartImage} />
+      <VStack>
+        <Text style={styles.itemName}>{item.product.name}</Text>
+        <Text>Price {item.product.price}KD</Text>
+      </VStack>
+      <NumericInput
+        rounded
+        value={quantity}
+        onChange={(value) => setQuantity(value)}
+        totalHeight={30}
+        totalWidth={60}
+      />
+      <Button style={styles.addBtn} onPress={handleAdd}>
+        <Text>Add</Text>
+      </Button>
+      <Button
+        style={styles.addBtn}
+        onPress={() => cartStore.removeItemFromCart(product._id)}
       >
-        {item.quantity}
-      </Center>
-    </VStack>
+        <Text>Delete</Text>
+      </Button>
+    </HStack>
   );
 };
 
-export default CartItem;
+export default observer(CartItem);
 
 const styles = StyleSheet.create({
-  cartImage: {
-    width: 100,
-    height: 100,
+  cartDisplay: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: "90%",
   },
+  itemName: { fontWeight: "bold", fontSize: 15 },
+  cartImage: { width: "20%", height: "100%" },
+  addBtn: { backgroundColor: "orange" },
 });
