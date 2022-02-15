@@ -1,7 +1,9 @@
 import { StyleSheet, Text, Image } from "react-native";
 import React, { useState } from "react";
 import { baseURL } from "../../stores/api";
-import { Avatar, Button, VStack } from "native-base";
+import AddIcon from "react-native-vector-icons/Fontisto";
+import TrashIcon from "react-native-vector-icons/FontAwesome";
+import { Avatar, Button, Center, VStack } from "native-base";
 import { HStack } from "native-base";
 import NumericInput from "react-native-numeric-input";
 import { observer } from "mobx-react";
@@ -24,7 +26,7 @@ const CartItem = ({ item }) => {
   return (
     <HStack space={2} style={styles.cartDisplay}>
       <Avatar source={{ uri: item.product.image }} style={styles.cartImage} />
-      <VStack>
+      <VStack style={{ flex: 1 }}>
         <Text style={styles.itemName}>{item.product.name}</Text>
         <Text>Price {item.product.price}KD</Text>
       </VStack>
@@ -35,15 +37,25 @@ const CartItem = ({ item }) => {
         totalHeight={30}
         totalWidth={60}
       />
-      <Button style={styles.addBtn} onPress={handleAdd}>
+      {/* <Button style={styles.addBtn} onPress={handleAdd}>
         <Text>Add</Text>
-      </Button>
-      <Button
+      </Button> */}
+      <AddIcon
+        name="shopping-basket-add"
+        onPress={handleAdd}
+        style={styles.addBtn}
+      />
+      <TrashIcon
+        name="trash-o"
+        onPress={() => cartStore.removeItemFromCart(item.product._id)}
+        style={styles.delete}
+      />
+      {/* <Button
         style={styles.addBtn}
         onPress={() => cartStore.removeItemFromCart(product._id)}
       >
         <Text>Delete</Text>
-      </Button>
+      </Button> */}
     </HStack>
   );
 };
@@ -55,9 +67,10 @@ const styles = StyleSheet.create({
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    width: "90%",
+    width: "95%",
   },
   itemName: { fontWeight: "bold", fontSize: 15 },
   cartImage: { width: "20%", height: "100%" },
-  addBtn: { backgroundColor: "orange" },
+  addBtn: { fontSize: 23, color: "orange" },
+  delete: { fontSize: 23, color: "red" },
 });

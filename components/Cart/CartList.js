@@ -10,13 +10,18 @@ const CartList = () => {
     <CartItem key={item.product._id} item={item} />
   ));
   return (
-    <View>
-      <VStack space={2} alignItems="center">
+    <View style={styles.cartListWrapper}>
+      <VStack space={3} alignItems="center">
         {cartList}
       </VStack>
-      <Button style={styles.btnSm}>
-        <Text style={styles.btnTxt}>Checkout</Text>
-      </Button>
+      {cartStore.items !== [] && (
+        <>
+          <Button onPress={cartStore.checkout} style={styles.btnSm}>
+            <Text style={styles.btnTxt}>Checkout</Text>
+          </Button>
+          {/* <Text>{cartStore.totalPrice}</Text> */}
+        </>
+      )}
     </View>
   );
 };
@@ -24,10 +29,12 @@ const CartList = () => {
 export default observer(CartList);
 
 const styles = StyleSheet.create({
+  cartListWrapper: { marginTop: 20 },
   btnSm: {
     width: "35%",
     alignSelf: "center",
     backgroundColor: "orange",
+    margin: 25,
   },
   btnTxt: { color: "black" },
 });

@@ -42,6 +42,11 @@ class CartStore {
     this.items.forEach((item) => (total += item.quantity));
     return total;
   }
+  //   get totalPrice() {
+  //     let total = 0;
+  //     this.items.forEach((item) => (total += item.quantity * item.price));
+  //     return total;
+  //   }
   fetchCart = async () => {
     const items = await AsyncStorage.getItem("myCart");
     console.log(items);
@@ -51,8 +56,23 @@ class CartStore {
     this.items = this.items.filter((item) => item.product._id !== productId);
     await AsyncStorage.setItem("myCart", JSON.stringify(this.items));
   };
+  checkout = async () => {
+    this.items = [];
+    Alert("I'm a cute message");
+    await AsyncStorage.removeItem("myCart");
+    try {
+      const items = this.items.map((item) => {
+        return { ...item, product: item.product._id };
+      });
+      const res = await instance.post("/checkout", items);
+      this.items = [];
+      await AsyncStorage.removeItem("myCart");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 }
 
 const cartStore = new CartStore();
-cartStore.fetchCart();
+// cartStore.fetchCart();
 export default cartStore;

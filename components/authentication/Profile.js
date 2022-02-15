@@ -6,7 +6,7 @@ import { Badge } from "native-base";
 import cartStore from "../../stores/cartStore";
 import { observer } from "mobx-react";
 import authStore from "../../stores/authStore";
-const CartButton = () => {
+const Profile = () => {
   const navigation = useNavigation();
   return (
     <>
@@ -28,7 +28,7 @@ const CartButton = () => {
           </Badge>
           <Icon
             size={25}
-            style={styles.cartButton}
+            style={styles.Profile}
             name="cart"
             onPress={() => navigation.navigate("CartList")}
           />
@@ -38,10 +38,10 @@ const CartButton = () => {
   );
 };
 
-export default observer(CartButton);
+export default observer(Profile);
 
 const styles = StyleSheet.create({
-  cartButton: {
+  Profile: {
     color: "black",
     marginRight: 10,
   },
