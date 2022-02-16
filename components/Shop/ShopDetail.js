@@ -34,5 +34,8 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginTop: 15,
     marginBottom: 15,
+    borderWidth: 4,
+    borderColor: "orange",
+    borderRadius: 25,
   },
 });

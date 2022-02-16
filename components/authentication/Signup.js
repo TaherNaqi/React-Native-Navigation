@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { TextInput } from "react-native-paper";
 import { Button } from "native-base";
 import authStore from "../../stores/authStore";
-const Signin = ({ navigation }) => {
+const Signup = ({ navigation }) => {
   const [user, setUser] = useState({ username: "", password: "" });
   const handleUserName = (event) => {
     setUser({ ...user, username: event });
@@ -11,8 +11,8 @@ const Signin = ({ navigation }) => {
   const handlePassword = (event) => {
     setUser({ ...user, password: event });
   };
-  const handleLogIn = () => {
-    authStore.signIn(user, navigation);
+  const handleSignUp = () => {
+    authStore.signUp(user);
   };
   return (
     <View>
@@ -34,14 +34,14 @@ const Signin = ({ navigation }) => {
         placeholder="Password"
         onChangeText={handlePassword}
       />
-      <Button onPress={handleLogIn} style={styles.btnColor}>
-        <Text style={styles.textColor}>Log in</Text>
+      <Button onPress={handleSignUp} style={styles.btnColor}>
+        <Text style={styles.textColor}>Sign up</Text>
       </Button>
     </View>
   );
 };
 
-export default Signin;
+export default Signup;
 
 const styles = StyleSheet.create({
   adjustMxUser: { marginTop: 10, marginBottom: 5 },

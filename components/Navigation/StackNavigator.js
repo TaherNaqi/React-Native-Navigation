@@ -6,6 +6,8 @@ import ShopDetail from "../Shop/ShopDetail";
 import CartList from "../Cart/CartList";
 import CartButton from "../Cart/CartButton";
 import Signin from "../authentication/Signin";
+import Signup from "../authentication/Signup";
+import OrderList from "../Order/OrderList";
 const StackNavigator = () => {
   const { Navigator, Screen } = createStackNavigator();
   return (
@@ -21,6 +23,10 @@ const StackNavigator = () => {
     >
       <Screen name="Home" component={Home} options={{ headerShown: false }} />
       <Screen name="Signin" component={Signin} />
+      <Screen name="Signup" component={Signup} />
+
+      <Screen name="OrderList" component={OrderList} />
+
       <Screen name="Shops" component={ShopList} />
       <Screen
         name="ShopDetail"

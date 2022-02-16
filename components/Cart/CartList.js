@@ -1,7 +1,6 @@
 import { StyleSheet, View, Text } from "react-native";
 import { Button, VStack } from "native-base";
 import React from "react";
-import items from "../../items";
 import CartItem from "./CartItem";
 import { observer } from "mobx-react";
 import cartStore from "../../stores/cartStore";
