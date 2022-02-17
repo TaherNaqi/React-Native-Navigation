@@ -8,16 +8,7 @@ import Signup from "../authentication/Signup";
 const RootNavigator = () => {
   const { Navigator, Screen } = createStackNavigator();
   return (
-    <Navigator
-      initialRouteName="Home"
-      screenOptions={{
-        headerRight: () => <CartButton />,
-        headerStyle: {
-          backgroundColor: "orange",
-          // headerTintColor: "white",
-        },
-      }}
-    >
+    <Navigator initialRouteName="Home">
       <Screen name="Home" component={Home} options={{ headerShown: false }} />
 
       <Screen

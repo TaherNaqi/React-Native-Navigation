@@ -12,7 +12,14 @@ import ProductDetail from "../Product/ProductDetail";
 const HomeNavigator = () => {
   const { Navigator, Screen } = createStackNavigator();
   return (
-    <Navigator>
+    <Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: "orange",
+          // headerTintColor: "white",
+        },
+      }}
+    >
       <Screen name="Home" component={Home} options={{ headerShown: false }} />
 
       <Screen name="Shops" component={ShopList} />

@@ -27,6 +27,7 @@ const TabNavigator = ({ navigation, route }) => {
         name="Home"
         component={HomeNavigator}
         options={{
+          headerShown: false,
           onPress: () => navigation.navigate("Home"),
 
           tabBarIcon: ({ color, size }) => (
