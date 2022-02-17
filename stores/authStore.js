@@ -17,10 +17,11 @@ class AuthStore {
     this.user = decode(token);
   };
 
-  signUp = async (user) => {
+  signUp = async (user, navigation) => {
     try {
       const response = await api.post("/signup", user);
       this.setUser(response.data.token);
+      navigation.navigate("CartList");
     } catch (error) {
       console.log(error);
     }
@@ -33,7 +34,7 @@ class AuthStore {
   //       console.log(error);
   //     }
   //   };
-  signIn = async (user, navigation) => {
+  signIn = async (user, navigation, toast) => {
     try {
       const response = await api.post("/signin", user);
       //   console.log(
@@ -41,19 +42,24 @@ class AuthStore {
       //     response.data
       //   );
       await this.setUser(response.data.token);
-      navigation.replace("Home");
+      navigation.goBack();
+      // navigation.navigate("Home");
+      toast.show({
+        title: `Welcome back ${this.user.username}`,
+        status: "success",
+      });
     } catch (error) {
-      console.log(
-        "🚀 ~ file: authStore.js ~ line 42 ~ AuthStore ~ signIn= ~ error",
-        error
-      );
+      toast.show({
+        title: `invalid credentials`,
+        status: "danger",
+      });
     }
   };
 
-  logout = () => {
+  logout = async () => {
     this.user = null;
     delete api.defaults.headers.common.Authorization;
-    AsyncStorage.removeItem("myToken");
+    await AsyncStorage.removeItem("myToken");
   };
 
   checkForToken = () => {

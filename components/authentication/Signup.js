@@ -1,10 +1,19 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 import React, { useState } from "react";
-import { TextInput } from "react-native-paper";
-import { Button } from "native-base";
+import {
+  Box,
+  Button,
+  Center,
+  FormControl,
+  Heading,
+  Input,
+  useToast,
+  VStack,
+} from "native-base";
 import authStore from "../../stores/authStore";
 const Signup = ({ navigation }) => {
   const [user, setUser] = useState({ username: "", password: "" });
+  const toast = useToast();
   const handleUserName = (event) => {
     setUser({ ...user, username: event });
   };
@@ -12,32 +21,36 @@ const Signup = ({ navigation }) => {
     setUser({ ...user, password: event });
   };
   const handleSignUp = () => {
-    authStore.signUp(user);
+    authStore.signUp(user, navigation, toast);
   };
   return (
-    <View>
-      <TextInput
-        mode="outlined"
-        outlineColor="orange"
-        activeOutlineColor="orange"
-        label="Username"
-        placeholder="Username"
-        style={styles.adjustMxUser}
-        onChangeText={handleUserName}
-      />
-      <TextInput
-        mode="outlined"
-        outlineColor="orange"
-        activeOutlineColor="orange"
-        secureTextEntry
-        label="Password"
-        placeholder="Password"
-        onChangeText={handlePassword}
-      />
-      <Button onPress={handleSignUp} style={styles.btnColor}>
-        <Text style={styles.textColor}>Sign up</Text>
-      </Button>
-    </View>
+    <Center w="100%">
+      <Box safeArea p="2" w="90%" maxW="290" py="8">
+        <Heading
+          size="lg"
+          color="coolGray.800"
+          _dark={{
+            color: "warmGray.50",
+          }}
+          fontWeight="semibold"
+        >
+          Sign up
+        </Heading>
+        <VStack space={3} mt="5">
+          <FormControl>
+            <FormControl.Label>Username</FormControl.Label>
+            <Input onChangeText={handleUserName} />
+          </FormControl>
+          <FormControl>
+            <FormControl.Label>Password</FormControl.Label>
+            <Input type="password" onChangeText={handlePassword} />
+          </FormControl>
+          <Button mt="2" style={styles.btnColor} onPress={handleSignUp}>
+            Sign up
+          </Button>
+        </VStack>
+      </Box>
+    </Center>
   );
 };
 
@@ -47,9 +60,6 @@ const styles = StyleSheet.create({
   adjustMxUser: { marginTop: 10, marginBottom: 5 },
   btnColor: {
     backgroundColor: "orange",
-    width: "40%",
-    alignSelf: "center",
-    marginTop: 10,
   },
   textColor: { color: "black" },
 });

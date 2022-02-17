@@ -38,14 +38,13 @@ class CartStore {
   };
   checkout = async () => {
     try {
-      const items = this.items.map((item) => {
+      const orders = this.items.map((order) => {
         return {
-          ...item,
-          product: item.product._id,
-          owner: authStore.user._id,
+          ...order,
+          product: order.product._id,
         };
       });
-      const res = await api.post("/checkout", items);
+      const res = await api.post("/checkout", { order: orders });
       this.items = [];
       await AsyncStorage.removeItem("myCart");
     } catch (error) {

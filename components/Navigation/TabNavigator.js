@@ -1,15 +1,21 @@
+import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { StyleSheet } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import React from "react";
-import StackNavigator from "./StackNavigator";
-import OrderList from "../Order/OrderList";
-const TabNavigator = () => {
+
+import HomeNavigator from "./HomeNavigator";
+import OrderNavigator from "./OrderNavigate";
+import CartButton from "../Cart/CartButton";
+
+const TabNavigator = ({ navigation, route }) => {
   const Tab = createBottomTabNavigator();
   return (
     <Tab.Navigator
+      initialRouteName="Home"
       screenOptions={{
-        headerShown: false,
+        headerRight: () => <CartButton />,
+
+        // headerShown: false,
         tabBarStyle: {
           tabBarBackgroundColor: "#fff",
           tabBarButtonColor: "#ffff",
@@ -19,19 +25,24 @@ const TabNavigator = () => {
     >
       <Tab.Screen
         name="Home"
-        component={StackNavigator}
+        component={HomeNavigator}
         options={{
-          tabBarLabel: "Home",
+          onPress: () => navigation.navigate("Home"),
+
           tabBarIcon: ({ color, size }) => (
             <Icon name="home" color={color} size={size} />
           ),
         }}
       />
+
       <Tab.Screen
         name="Order"
-        component={OrderList}
+        component={OrderNavigator}
         options={{
+          headerShown: false,
           tabBarLabel: "Orders",
+          onPress: () => navigation.navigate("Order"),
+
           tabBarIcon: ({ color, size }) => (
             <Icon name="cart" color={color} size={size} />
           ),

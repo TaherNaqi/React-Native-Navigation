@@ -11,6 +11,7 @@ class OrderStore {
     try {
       const response = await api.get("/orders");
       this.orders = response.data;
+      console.log(this.orders);
     } catch (error) {
       console.log(error);
     }

@@ -1,10 +1,10 @@
 import { StyleSheet } from "react-native";
 import React from "react";
 import ProductItem from "../Product/ProductItem";
-import { VStack } from "native-base";
+import { VStack, Text } from "native-base";
 const OrderItem = ({ order }) => {
-  const products = order.products.map((product) => (
-    <ProductItem product={product.product} />
+  const products = order.map((product) => (
+    <ProductItem product={product.product} key={product.product._id} />
   ));
   return (
     <VStack w="100%" alignItems="center" space="3">
